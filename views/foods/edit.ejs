@@ -8,7 +8,8 @@
 <body>
      <%- include('../partials/_navbar.ejs') %>
      <h1>Edit Item</h1>
-     <form action="/users/<% user._id %>/foods/<% food._id %>?_method=PUT" method="POST"
+     <form action="/users/<%= user._id %>/foods/<%= food._id %>?_method=PUT" method="POST">
+        <label>Edit: </label>
         <input type="text" name="name" value="<% food.name %>" />
         <button>Update!</button>
      </form>

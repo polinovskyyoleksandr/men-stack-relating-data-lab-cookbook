@@ -8,8 +8,6 @@ const morgan = require('morgan');
 const session = require('express-session');
 
 const authController = require('./controllers/auth.js');
-const recipesController = require('./controllers/recipes.js');
-const ingredientsController = require('./controllers/ingredients.js');
 
 const isSignedIn = require('./middleware/is-signed-in.js');
 const passUserToView = require('./middleware/pass-user-to-view.js');
@@ -44,16 +42,17 @@ app.get('/', (req, res) => {
 
 app.get('/vip-lounge', (req, res) => {
   if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
+    res.render('users/vip-lounge.ejs', {
+      user: req.session.user
+    });
   } else {
     res.send('Sorry, no guests allowed.');
   }
 });
 
+
 app.use(passUserToView);
 app.use('/auth', authController);
-app.use('/recipes', recipesController);
-app.use('/ingredients', ingredientsController);
 app.use(isSignedIn);
 app.use('/users/:userId/foods', foodsController);
 
